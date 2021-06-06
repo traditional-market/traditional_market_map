@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+#map {
+    width: "100%";
+    height: 100vh;
+    font-family: "Jua", sans-serif;
+}
+.article_marker {
+    padding: 10px;
+    width: 150px;
+
+    color: white;
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.marker_container {
+    /* height: calc(100% - 0px); */
+    width: 60px;
+    height: 65px;
+    margin: 10px;
+    background-image: url("./img/marker2.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.marker_title {
+    position: absolute;
+    bottom: 90px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    color: white;
+    font-size: 15px;
+    margin-bottom: 2px;
+    background-color: #2db400;
+    border-radius: 5px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.marker_step {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
