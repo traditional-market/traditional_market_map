@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MarkerController from "./component/MarkerController";
-
+import ZoomController from "./component/ZoomController";
 type Props = {};
 declare global {
     interface Window {
@@ -58,6 +58,7 @@ const App = () => {
             {map && (
                 <>
                     <MarkerController map={map} />
+                    <ZoomController map={map} />
                 </>
             )}
             <div id="map"></div>

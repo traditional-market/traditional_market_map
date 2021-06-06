@@ -38,11 +38,17 @@ const MarkerController = ({ map }: Props) => {
             var marker = new window.naver.maps.Marker(markerOptions);
             window.naver.maps.Event.addListener(marker, "click", function (e: any) {
                 console.log(item);
-                // sendPostMessageToApp({ type: "CLICK_MARKER", data: element });
+                sendPostMessageToApp({ type: "CLICK_MARKER", data: item });
             });
             cur_markers.push(marker);
         });
         setMarkers(cur_markers);
+    };
+    type sendAction = { type: "CLICK_MARKER"; data: any } | { type: "CLICK_MAP" } | { type: "GEOLOCATION_ERROR" };
+    const sendPostMessageToApp = (action: sendAction) => {
+        if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage(JSON.stringify(action));
+        }
     };
 
     const location_rerender = () => {
@@ -62,6 +68,12 @@ const MarkerController = ({ map }: Props) => {
         });
     };
 
+    const remove_all_marker = () => {
+        markers.forEach((element: any) => {
+            element.setMap(null);
+        });
+    };
+
     useEffect(() => {
         set_all_marker();
     }, []);
@@ -71,15 +83,20 @@ const MarkerController = ({ map }: Props) => {
             var event = window.naver.maps.Event.addListener(map, "idle", function (e: any) {
                 var cur_zoom: number = map.zoom;
                 console.log("ZOOM", map.zoom);
-                // if (cur_zoom >= 14) {
-                //     location_rerender();
-                // }
-                location_rerender();
+
+                if (cur_zoom >= 14) {
+                    location_rerender();
+                } else {
+                    remove_all_marker();
+                }
             });
         }
+        var click_event = window.naver.maps.Event.addListener(map, "click", function (e: any) {
+            sendPostMessageToApp({ type: "CLICK_MAP" });
+        });
         return () => {
             window.naver.maps.Event.removeListener(event);
-            // window.naver.maps.Event.removeListener(click_event);
+            window.naver.maps.Event.removeListener(click_event);
         };
     }, [markers]);
 
